@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace OMF.OMFClasses
 {
     public class SurfaceElement : DateBase, IClass
@@ -14,6 +14,8 @@ namespace OMF.OMFClasses
         public byte[] color { get; set; }
         public string subtype { get; set; }
         public string geometry { get; set; }
+
+        [JsonIgnore]
         public SurfaceGeometry surfacegeometry { get; set; }
 
         public string[] data { get; set; }

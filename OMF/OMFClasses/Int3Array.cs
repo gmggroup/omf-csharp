@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace OMF.OMFClasses
         public string __class__ { get; set; }
         public ScalarArray array { get; set; }
 
+        [JsonIgnore]
         public List<int[]> Data { get; set; }
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)

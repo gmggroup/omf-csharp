@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace OMF.OMFClasses
 {
     public class Vector3Array : DateBase, IClass
@@ -11,7 +11,9 @@ namespace OMF.OMFClasses
         public string __class__ { get; set; }
         public ScalarArray array { get; set; }
 
+        [JsonIgnore]
         public List<double[]> Data { get; set; }
+
         public void Deserialize(Dictionary<string, object> json, System.IO.BinaryReader br)
         {
             Data = new List<double[]>();

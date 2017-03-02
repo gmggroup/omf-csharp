@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace OMF.OMFClasses
 {
 	public class PointSetElement : DateBase, IClass
@@ -16,7 +16,8 @@ namespace OMF.OMFClasses
 		public string geometry { get; set; }
 		public PointSetGeometry pointsetgeometry { get; set; }
 
-		public string[] data { get; set; }
+        [JsonIgnore]
+        public string[] data { get; set; }
 
 		public string description { get; set; }
 
