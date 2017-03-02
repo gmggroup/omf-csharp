@@ -56,10 +56,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OMF.cs" />
+    <Compile Include="OMFClasses\DateAndDescriptionBase.cs" />
     <Compile Include="OMFClasses\DateBase.cs" />
-    <Compile Include="OMFClasses\IClass.cs" />
+    <Compile Include="OMFClasses\Legend.cs" />
+    <Compile Include="OMFClasses\ObjectFactory.cs" />
+    <Compile Include="OMFClasses\IObject.cs" />
     <Compile Include="OMFClasses\Int3Array.cs" />
+    <Compile Include="OMFClasses\LineSetGeometry.cs" />
+    <Compile Include="OMFClasses\ScalarData.cs" />
     <Compile Include="OMFClasses\ScalarArray.cs" />
+    <Compile Include="OMFClasses\ColorArray.cs" />
+    <Compile Include="OMFClasses\StringArray.cs" />
+    <Compile Include="OMFClasses\LineSetElement.cs" />
+    <Compile Include="OMFClasses\Int2Array.cs" />
+    <Compile Include="OMFClasses\VolumeElement.cs" />
     <Compile Include="OMFClasses\SurfaceElement.cs" />
     <Compile Include="OMFClasses\SurfaceGeometry.cs" />
     <Compile Include="OMFClasses\Vector3Array.cs" />

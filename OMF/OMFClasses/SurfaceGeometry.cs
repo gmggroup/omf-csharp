@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace OMF.OMFClasses
 {
-    public class SurfaceGeometry: DateBase, IClass
+    public class SurfaceGeometry: DateBase, IObject
     {
         public string __class__ { get; set; }
         public double[] origin { get; set; }

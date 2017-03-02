@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace OMF.OMFClasses
 {
-    public class ScalarArray: DateBase, IObject
+    public class ColorArray : DateBase, IObject
     {
         public string __class__ { get; set; }
-        public long start { get; set; }
-        public long length { get; set; }
-        public string dtype { get; set; }
+        public string[] array { get; set; }
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
