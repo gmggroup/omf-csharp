@@ -4,20 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
 namespace OMF
 {
     public class OMF
     {
-        public bool Execute()
+        public OMF()
         {
-			string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-            string file = System.IO.Path.Combine(baseDir, "../../test.omf");
-            if(System.IO.File.Exists(file)==false)
-            {
-                Console.WriteLine("File does not exist");
-                return false;
-            }
-            BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open));
+            LastError = "";
+            SurfaceElements = new List<OMFClasses.SurfaceElement>();
+            PointSetElements = new List<OMFClasses.PointSetElement>();
+            LineSetElements = new List<OMFClasses.LineSetElement>();
+            VolumeElements = new List<OMFClasses.VolumeElement>();
+        }
+        public string LastError { get; private set; }
+        public List<OMFClasses.SurfaceElement> SurfaceElements { get; private set; }
+        public List<OMFClasses.PointSetElement> PointSetElements { get; private set; }
+        public List<OMFClasses.VolumeElement> VolumeElements { get; private set; }
+        public List<OMFClasses.LineSetElement> LineSetElements { get; private set; }
+
+        public bool Execute(string file)
+        {
+            bool returnvalue = true;
+
+            BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open,FileAccess.Read,FileShare.ReadWrite));
 
             byte[] magic = br.ReadBytes(4);//4 byte magic number: b'\x81\x82\x83\x84'
             byte[] version = br.ReadBytes(32);//32 byte version string: 'OMF-v0.9.0' (other bytes empty)
@@ -32,44 +42,72 @@ namespace OMF
             string jsonstring = Encoding.UTF8.GetString(jsonbytes);
 
 
-            Dictionary<string, object> jsonDict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonstring);
+            Dictionary<string, object> jsonDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonstring);
 
             //try
             //{
-                foreach (string id in jsonDict.Keys)
+            foreach (string id in jsonDict.Keys)
+            {
+                string data = jsonDict[id].ToString();
+                Dictionary<string, object> thisDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
+
+                if (thisDict.ContainsKey("__class__"))
                 {
-                    string value = jsonDict[id].ToString();
-                    Dictionary<string, object> thisDict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(value);
-
-                    if (thisDict.ContainsKey("__class__"))
+                    switch (thisDict["__class__"].ToString().ToUpper())
                     {
-                        switch (thisDict["__class__"].ToString().ToUpper())
-                        {
-                            case "SURFACEELEMENT":
-                                OMFClasses.SurfaceElement se = Newtonsoft.Json.JsonConvert.DeserializeObject<OMFClasses.SurfaceElement>(value);
-                                se.Deserialize(jsonDict, br);
+                        case "SURFACEELEMENT":
+                            {
+                                OMFClasses.SurfaceElement obj = (OMFClasses.SurfaceElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                if (obj != null)
+                                {
+                                    SurfaceElements.Add(obj);
+                                }
+                            }
+                            break;
+                        case "POINTSETELEMENT":
+                            {
+                                OMFClasses.PointSetElement obj = (OMFClasses.PointSetElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                if (obj != null)
+                                {
+                                    PointSetElements.Add(obj);
+                                }
+                            }
+                            break;
+                        case "VOLUMELEMENT":
+                            {
+                                OMFClasses.VolumeElement obj = (OMFClasses.VolumeElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                if (obj != null)
+                                {
+                                    VolumeElements.Add(obj);
+                                }
+                            }
+                            break;
+                        case "LINESETELEMENT":
+                            {
+                                OMFClasses.LineSetElement obj = (OMFClasses.LineSetElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                if (obj != null)
+                                {
+                                    LineSetElements.Add(obj);
+                                }
+                            }
+                            break;
 
-                                break;
-							case "POINTSETELEMENT":
-								OMFClasses.PointSetElement pe = Newtonsoft.Json.JsonConvert.DeserializeObject<OMFClasses.PointSetElement>(value);
-								pe.Deserialize(jsonDict, br);
-								break;
-
-                        }
                     }
-
                 }
-            //}
-            //catch
-            //{
 
+            }
+            //}
+            //catch(Exception ex)
+            //{
+            // LastError=ex.Message;
+            //returnvalue=false;
             //}
             //finally
             //{
-            //    br.Close();
+            br.Close();
             //}
 
-            return true;
+            return returnvalue;
 
         }
 

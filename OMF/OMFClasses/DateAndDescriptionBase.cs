@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace OMF.OMFClasses
 {
-    public interface IClass
+    public class DateAndDescriptionBase : DateBase
     {
-        string __class__ { get; set; }
-        void Deserialize(Dictionary<string, object> json,System.IO.BinaryReader br);
+        public string description { get; set; }
     }
 }
