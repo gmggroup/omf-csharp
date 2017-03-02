@@ -19,7 +19,7 @@ namespace OMF
 
 
             string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-            string file = System.IO.Path.Combine(baseDir, "..\\..\\test.omf");
+            string file = System.IO.Path.Combine(baseDir, "..", "..", "test.omf");
             if (System.IO.File.Exists(file) == false)
             {
                 Console.WriteLine(string.Format("File '{0}' does not exist.", file));
