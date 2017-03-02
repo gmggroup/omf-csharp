@@ -16,7 +16,7 @@ namespace OMF.OMFClasses
         public string geometry { get; set; }
 
         [JsonIgnore]
-        public SurfaceGeometry surfacegeometry { get; set; }
+        public SurfaceGeometry Surface { get; set; }
 
         public string[] data { get; set; }
 
@@ -24,11 +24,7 @@ namespace OMF.OMFClasses
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
-            if(json.ContainsKey(geometry))
-            {
-                surfacegeometry= Newtonsoft.Json.JsonConvert.DeserializeObject<OMFClasses.SurfaceGeometry>(json[geometry].ToString());
-                surfacegeometry.Deserialize(json, br);
-            }
+            Surface = (SurfaceGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
         }
     }
 }

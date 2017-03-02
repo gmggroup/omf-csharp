@@ -25,10 +25,7 @@ namespace OMF.OMFClasses
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
-            if(json.ContainsKey(geometry))
-            {
-                Geometry = (LineSetGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
-            }
+            Geometry = (LineSetGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
             Objects = ObjectFactory.DeserializeObjects(json, br, data);
         }
     }

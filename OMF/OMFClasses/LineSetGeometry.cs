@@ -21,15 +21,8 @@ namespace OMF.OMFClasses
 
         public void Deserialize(Dictionary<string, object> json, System.IO.BinaryReader br)
 		{
-			if (json.ContainsKey(vertices))
-			{
-                Vertices = (Vector3Array)ObjectFactory.GetObjectFromGuid(json, br, vertices);
-			}
-
-            if (json.ContainsKey(segments))
-            {
-                Segments = (Int2Array)ObjectFactory.GetObjectFromGuid(json, br, segments);
-            }
+            Vertices = (Vector3Array)ObjectFactory.GetObjectFromGuid(json, br, vertices);
+            Segments = (Int2Array)ObjectFactory.GetObjectFromGuid(json, br, segments);
         }
 	}
 }

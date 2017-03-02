@@ -22,15 +22,11 @@ namespace OMF.OMFClasses
         public List<IObject> Objects { get; set; }
 
         [JsonIgnore]
-        public PointSetGeometry pointsetgeometry { get; set; }
+        public PointSetGeometry PointSet { get; set; }
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
 		{
-			if (json.ContainsKey(geometry))
-			{
-                pointsetgeometry = (PointSetGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
-			}
-
+            PointSet = (PointSetGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
             Objects = ObjectFactory.DeserializeObjects(json, br, data);
         }
 	}

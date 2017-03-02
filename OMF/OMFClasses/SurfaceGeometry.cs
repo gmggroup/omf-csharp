@@ -22,16 +22,8 @@ namespace OMF.OMFClasses
 
         public void Deserialize(Dictionary<string, object> json, System.IO.BinaryReader br)
         {
-            if(json.ContainsKey(vertices))
-            {
-                Verticies= Newtonsoft.Json.JsonConvert.DeserializeObject<OMFClasses.Vector3Array>(json[vertices].ToString());
-                Verticies.Deserialize(json, br);
-            }
-            if (json.ContainsKey(triangles))
-            {
-                Triangles = Newtonsoft.Json.JsonConvert.DeserializeObject<OMFClasses.Int3Array>(json[triangles].ToString());
-                Triangles.Deserialize(json, br);
-            }
+            Verticies = (Vector3Array)ObjectFactory.GetObjectFromGuid(json, br, vertices);
+            Triangles = (Int3Array)ObjectFactory.GetObjectFromGuid(json, br, triangles);
         }
     }
 }
