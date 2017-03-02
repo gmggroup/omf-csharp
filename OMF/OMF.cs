@@ -15,6 +15,7 @@ namespace OMF
             SurfaceElements = new List<OMFClasses.SurfaceElement>();
             PointSetElements = new List<OMFClasses.PointSetElement>();
             LineSetElements = new List<OMFClasses.LineSetElement>();
+            VolumeElements = new List<OMFClasses.VolumeElement>();
         }
         public string LastError { get; private set; }
         public List<OMFClasses.SurfaceElement> SurfaceElements { get; private set; }
@@ -26,7 +27,7 @@ namespace OMF
         {
             bool returnvalue = true;
 
-            BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open));
+            BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open,FileAccess.Read,FileShare.ReadWrite));
 
             byte[] magic = br.ReadBytes(4);//4 byte magic number: b'\x81\x82\x83\x84'
             byte[] version = br.ReadBytes(32);//32 byte version string: 'OMF-v0.9.0' (other bytes empty)
