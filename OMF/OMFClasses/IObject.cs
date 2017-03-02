@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace OMF.OMFClasses
 {
-    public class DateBase
+    public interface IObject
     {
-        public DateTime date_modified { get; set; }
-        public DateTime date_created { get; set; }
-        
+        string __class__ { get; set; }
+        void Deserialize(Dictionary<string, object> json,System.IO.BinaryReader br);
     }
 }
