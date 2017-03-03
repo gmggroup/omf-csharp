@@ -28,7 +28,7 @@ namespace OMF
             }
 
 
-            OMF torun = new OMF();
+            OMFReader torun = new OMFReader();
             torun.Execute(file);
 
         }

@@ -7,9 +7,9 @@ using System.IO;
 using Newtonsoft.Json;
 namespace OMF
 {
-    public class OMF
+    public class OMFReader
     {
-        public OMF()
+        public OMFReader()
         {
             LastError = "";
             SurfaceElements = new List<OMFClasses.SurfaceElement>();

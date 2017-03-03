@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMF.OMFClasses
+namespace OMF.Objects
 {
     public interface IObject
     {

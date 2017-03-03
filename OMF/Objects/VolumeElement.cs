@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-namespace OMF.OMFClasses
+namespace OMF.Objects
 {
-    public class LineSetElement : DateBase, IObject
+    public class VolumeElement : DateBase, IObject
     {
         public string name { get; set; }
         public string __class__ { get; set; }
@@ -18,14 +18,15 @@ namespace OMF.OMFClasses
         public string description { get; set; }
 
         [JsonIgnore]
-        public LineSetGeometry Geometry { get; set; }
+        public SurfaceGeometry Surface { get; set; }
 
         [JsonIgnore]
         public List<IObject> Objects { get; set; }
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
-            Geometry = (LineSetGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
+            Surface = (SurfaceGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
+            
             Objects = ObjectFactory.DeserializeObjects(json, br, data);
         }
     }

@@ -55,24 +55,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OMF.cs" />
-    <Compile Include="OMFClasses\DateAndDescriptionBase.cs" />
-    <Compile Include="OMFClasses\DateBase.cs" />
-    <Compile Include="OMFClasses\Legend.cs" />
-    <Compile Include="OMFClasses\ObjectFactory.cs" />
-    <Compile Include="OMFClasses\IObject.cs" />
-    <Compile Include="OMFClasses\Int3Array.cs" />
-    <Compile Include="OMFClasses\LineSetGeometry.cs" />
-    <Compile Include="OMFClasses\ScalarData.cs" />
-    <Compile Include="OMFClasses\ScalarArray.cs" />
-    <Compile Include="OMFClasses\ColorArray.cs" />
-    <Compile Include="OMFClasses\StringArray.cs" />
-    <Compile Include="OMFClasses\LineSetElement.cs" />
-    <Compile Include="OMFClasses\Int2Array.cs" />
-    <Compile Include="OMFClasses\VolumeElement.cs" />
-    <Compile Include="OMFClasses\SurfaceElement.cs" />
-    <Compile Include="OMFClasses\SurfaceGeometry.cs" />
-    <Compile Include="OMFClasses\Vector3Array.cs" />
+    <Compile Include="OMFReader.cs" />
+    <Compile Include="Objects\DateAndDescriptionBase.cs" />
+    <Compile Include="Objects\DateBase.cs" />
+    <Compile Include="Objects\Legend.cs" />
+    <Compile Include="Objects\ObjectFactory.cs" />
+    <Compile Include="Objects\IObject.cs" />
+    <Compile Include="Objects\Int3Array.cs" />
+    <Compile Include="Objects\LineSetGeometry.cs" />
+    <Compile Include="Objects\ScalarData.cs" />
+    <Compile Include="Objects\ScalarArray.cs" />
+    <Compile Include="Objects\ColorArray.cs" />
+    <Compile Include="Objects\StringArray.cs" />
+    <Compile Include="Objects\LineSetElement.cs" />
+    <Compile Include="Objects\Int2Array.cs" />
+    <Compile Include="Objects\VolumeElement.cs" />
+    <Compile Include="Objects\SurfaceElement.cs" />
+    <Compile Include="Objects\SurfaceGeometry.cs" />
+    <Compile Include="Objects\Vector3Array.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -95,8 +95,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="OMFClasses\PointSetElement.cs" />
-    <Compile Include="OMFClasses\PointSetGeometry.cs" />
+    <Compile Include="Objects\PointSetElement.cs" />
+    <Compile Include="Objects\PointSetGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
