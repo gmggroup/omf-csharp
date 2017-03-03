@@ -12,16 +12,16 @@ namespace OMF
         public OMFReader()
         {
             LastError = "";
-            SurfaceElements = new List<OMFClasses.SurfaceElement>();
-            PointSetElements = new List<OMFClasses.PointSetElement>();
-            LineSetElements = new List<OMFClasses.LineSetElement>();
-            VolumeElements = new List<OMFClasses.VolumeElement>();
+            SurfaceElements = new List<OMF.Objects.SurfaceElement>();
+            PointSetElements = new List<OMF.Objects.PointSetElement>();
+            LineSetElements = new List<OMF.Objects.LineSetElement>();
+            VolumeElements = new List<OMF.Objects.VolumeElement>();
         }
         public string LastError { get; private set; }
-        public List<OMFClasses.SurfaceElement> SurfaceElements { get; private set; }
-        public List<OMFClasses.PointSetElement> PointSetElements { get; private set; }
-        public List<OMFClasses.VolumeElement> VolumeElements { get; private set; }
-        public List<OMFClasses.LineSetElement> LineSetElements { get; private set; }
+        public List<OMF.Objects.SurfaceElement> SurfaceElements { get; private set; }
+        public List<OMF.Objects.PointSetElement> PointSetElements { get; private set; }
+        public List<OMF.Objects.VolumeElement> VolumeElements { get; private set; }
+        public List<OMF.Objects.LineSetElement> LineSetElements { get; private set; }
 
         public bool Execute(string file)
         {
@@ -57,7 +57,7 @@ namespace OMF
                     {
                         case "SURFACEELEMENT":
                             {
-                                OMFClasses.SurfaceElement obj = (OMFClasses.SurfaceElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                OMF.Objects.SurfaceElement obj = (OMF.Objects.SurfaceElement)OMF.Objects.ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                 if (obj != null)
                                 {
                                     SurfaceElements.Add(obj);
@@ -66,7 +66,7 @@ namespace OMF
                             break;
                         case "POINTSETELEMENT":
                             {
-                                OMFClasses.PointSetElement obj = (OMFClasses.PointSetElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                OMF.Objects.PointSetElement obj = (OMF.Objects.PointSetElement)OMF.Objects.ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                 if (obj != null)
                                 {
                                     PointSetElements.Add(obj);
@@ -75,7 +75,7 @@ namespace OMF
                             break;
                         case "VOLUMELEMENT":
                             {
-                                OMFClasses.VolumeElement obj = (OMFClasses.VolumeElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                OMF.Objects.VolumeElement obj = (OMF.Objects.VolumeElement)OMF.Objects.ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                 if (obj != null)
                                 {
                                     VolumeElements.Add(obj);
@@ -84,7 +84,7 @@ namespace OMF
                             break;
                         case "LINESETELEMENT":
                             {
-                                OMFClasses.LineSetElement obj = (OMFClasses.LineSetElement)OMFClasses.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                OMF.Objects.LineSetElement obj = (OMF.Objects.LineSetElement)OMF.Objects.ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                 if (obj != null)
                                 {
                                     LineSetElements.Add(obj);
