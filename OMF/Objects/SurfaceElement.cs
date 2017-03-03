@@ -26,5 +26,12 @@ namespace OMF.Objects
         {
             Surface = (SurfaceGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
         }
+
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        {
+            geometry = ObjectFactory.SerializeObject(Surface, json, bw);
+
+            ObjectFactory.GetObjectToData(json, this, guid);
+        }
     }
 }

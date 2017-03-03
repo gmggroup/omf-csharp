@@ -15,11 +15,18 @@ namespace OMF.Objects
         public string values { get; set; }
 
         [JsonIgnore]
-        public ColorArray colorarray { get; set; }
+        public ColorArray Colors { get; set; }
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
-            colorarray = (ColorArray)ObjectFactory.GetObjectFromGuid(json, br, values);
+            Colors = (ColorArray)ObjectFactory.GetObjectFromGuid(json, br, values);
+        }
+
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        {
+            values = ObjectFactory.SerializeObject(Colors, json, bw);
+
+            ObjectFactory.GetObjectToData(json, this, guid);
         }
     }
 }

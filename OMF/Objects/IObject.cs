@@ -10,5 +10,6 @@ namespace OMF.Objects
     {
         string __class__ { get; set; }
         void Deserialize(Dictionary<string, object> json,System.IO.BinaryReader br);
+        void Serialize(Dictionary<string, object> json, System.IO.BinaryWriter bw,string guid);
     }
 }

@@ -31,6 +31,12 @@ namespace OMF
             OMFReader torun = new OMFReader();
             torun.Execute(file);
 
+            OMFWriter towrite = new OMFWriter();
+            towrite.LineSetElements = torun.LineSetElements;
+            towrite.PointSetElements = torun.PointSetElements;
+            towrite.SurfaceElements = torun.SurfaceElements;
+            towrite.VolumeElements = torun.VolumeElements;
+            towrite.Execute(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(file), "FileOut.omf"));
         }
     }
 }

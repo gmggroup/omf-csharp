@@ -18,20 +18,14 @@ namespace OMF.Objects
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
-            Data = new List<int[]>();
-            br.BaseStream.Seek(array.start, System.IO.SeekOrigin.Begin);
-            byte[] data = br.ReadBytes((int)array.length);
+            Data = Helpers.ReadInt3Array(br, array);
+        }
 
-            byte[] newdata = Ionic.Zlib.ZlibStream.UncompressBuffer(data);
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        {
+            array=Helpers.WriteInt3Array(bw, Data);
 
-            for (int i = 0; i < newdata.Length; i = i + 24)
-            {
-                int[] toadd = new int[3];
-                toadd[0] = BitConverter.ToInt32(newdata, i);
-                toadd[1] = BitConverter.ToInt32(newdata, i + 8);
-                toadd[2] = BitConverter.ToInt32(newdata, i + 16);
-                Data.Add(toadd);
-            }
+            ObjectFactory.GetObjectToData(json, this, guid);
         }
     }
 }

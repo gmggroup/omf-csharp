@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +20,12 @@ namespace OMF.Objects
 		{
             Verticies = (Vector3Array)ObjectFactory.GetObjectFromGuid(json, br, vertices);
 		}
-	}
+
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        {
+            vertices = ObjectFactory.SerializeObject(Verticies, json, bw);
+
+            ObjectFactory.GetObjectToData(json, this, guid);
+        }
+    }
 }

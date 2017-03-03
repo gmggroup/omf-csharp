@@ -29,5 +29,14 @@ namespace OMF.Objects
             PointSet = (PointSetGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
             Objects = ObjectFactory.DeserializeObjects(json, br, data);
         }
-	}
+
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        {
+            geometry = ObjectFactory.SerializeObject(PointSet, json, bw);
+
+            data = ObjectFactory.SerializeObjects(Objects, json, bw);
+
+            ObjectFactory.GetObjectToData(json, this, guid);
+        }
+    }
 }

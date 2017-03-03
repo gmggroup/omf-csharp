@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,20 +17,14 @@ namespace OMF.Objects
 
         public void Deserialize(Dictionary<string, object> json, System.IO.BinaryReader br)
         {
-            Data = new List<double[]>();
-            br.BaseStream.Seek(array.start, System.IO.SeekOrigin.Begin);
+            Data = Helpers.ReadDouble3Array(br, array);
+        }
 
-            byte[] data = br.ReadBytes((int)(array.length));
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        {
+            array=Helpers.WriteDouble3Array(bw, Data);
 
-            byte[] newdata = Ionic.Zlib.ZlibStream.UncompressBuffer(data);
-            for (int i = 0; i < newdata.Length; i = i + 24)
-            {
-                double[] toadd = new double[3];
-                toadd[0] = BitConverter.ToDouble(newdata, i);
-                toadd[1] = BitConverter.ToDouble(newdata, i + 8);
-                toadd[2] = BitConverter.ToDouble(newdata, i + 16);
-                Data.Add(toadd);
-            }
+            ObjectFactory.GetObjectToData(json, this, guid);
         }
     }
 }

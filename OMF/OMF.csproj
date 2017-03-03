@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\Helpers.cs" />
+    <Compile Include="OMFWriter.cs" />
     <Compile Include="OMFReader.cs" />
     <Compile Include="Objects\DateAndDescriptionBase.cs" />
     <Compile Include="Objects\DateBase.cs" />

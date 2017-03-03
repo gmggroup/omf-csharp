@@ -29,5 +29,15 @@ namespace OMF.Objects
             
             Objects = ObjectFactory.DeserializeObjects(json, br, data);
         }
+
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw,string guid)
+        {
+            //need to fill up the json Dictionary then write the binary data
+            geometry = ObjectFactory.SerializeObject(Surface, json, bw);
+            
+            data=ObjectFactory.SerializeObjects(Objects, json, bw);
+
+            ObjectFactory.GetObjectToData(json, this, guid);
+        }
     }
 }

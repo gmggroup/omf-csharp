@@ -27,7 +27,7 @@ namespace OMF.Objects
             }
             public Type GetObjectType(string className)
             {
-                if(m_ObjectTypes.ContainsKey(className))
+                if (m_ObjectTypes.ContainsKey(className))
                 {
                     return m_ObjectTypes[className];
                 }
@@ -55,7 +55,7 @@ namespace OMF.Objects
             }
         }
 
-        public static List<OMF.Objects.IObject> DeserializeObjects(Dictionary<string, object> jsonDict, BinaryReader br,string[] guids)
+        public static List<OMF.Objects.IObject> DeserializeObjects(Dictionary<string, object> jsonDict, BinaryReader br, string[] guids)
         {
             if (guids != null)
             {
@@ -74,9 +74,42 @@ namespace OMF.Objects
             }
             return null;
         }
+        public static void GetObjectToData(Dictionary<string, object> jsonDict, IObject toSerialize,string guid)
+        {
+            string jsonString = JsonConvert.SerializeObject(toSerialize);
+            jsonDict.Add(guid, jsonString);
+        }
+        public static string SerializeObject(IObject objs, Dictionary<string, object> jsonDict, BinaryWriter bw)
+        {
+            
+            if(objs==null)
+            {
+                return "";
+            }
+            else
+            {
+                string guid = Guid.NewGuid().ToString();
+                objs.Serialize(jsonDict, bw, guid);
+                return guid;
+            }
+        }
+        public static string[] SerializeObjects(List<IObject> objs, Dictionary<string, object> jsonDict, BinaryWriter bw)
+        {
+            if(objs==null)
+            {
+                return null;
+            }
+            List<string> guids = new List<string>();
+            for (int i = 0; i < objs.Count; i++)
+            {
+                string thisGuid = Guid.NewGuid().ToString();
+                guids.Add(thisGuid);
+                objs[i].Serialize(jsonDict, bw, thisGuid);
+            }
+            return guids.ToArray();
+        }
         public static IObject GetObjectFromData(Dictionary<string, object> jsonDict, BinaryReader br, string data)
         {
-
             Dictionary<string, object> thisDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
             if (thisDict.ContainsKey("__class__"))
             {
