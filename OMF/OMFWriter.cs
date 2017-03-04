@@ -23,11 +23,19 @@ namespace OMF
         public List<OMF.Objects.VolumeElement> VolumeElements { get; set; }
         public List<OMF.Objects.LineSetElement> LineSetElements { get; set; }
 
-        public bool Execute(string file)
+        public bool Write(string file)
+        {
+            BinaryWriter bw = new BinaryWriter(File.Open(file, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None));
+
+            bool returnvalue = Write(bw);
+
+            bw.Close();
+
+            return returnvalue;
+        }
+        public bool Write(BinaryWriter bw)
         {
             bool returnvalue = true;
-
-            BinaryWriter bw = new BinaryWriter(File.Open(file, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None));
 
             List<byte> header = new List<byte>();
             header.Add(0x84);
@@ -78,7 +86,6 @@ namespace OMF
             //}
             //finally
             //{
-            bw.Close();
             //}
 
             return returnvalue;

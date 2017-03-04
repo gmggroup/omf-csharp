@@ -23,11 +23,21 @@ namespace OMF
         public List<OMF.Objects.VolumeElement> VolumeElements { get; private set; }
         public List<OMF.Objects.LineSetElement> LineSetElements { get; private set; }
 
-        public bool Execute(string file)
+        public bool Read(string file)
+        {
+            BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
+
+            bool returnvalue= Read(br);
+
+            br.Close();
+
+            return returnvalue;
+        }
+        public bool Read(BinaryReader br)
         {
             bool returnvalue = true;
 
-            BinaryReader br = new BinaryReader(File.Open(file, FileMode.Open,FileAccess.Read,FileShare.ReadWrite));
+            
 
             byte[] magic = br.ReadBytes(4);//4 byte magic number: b'\x81\x82\x83\x84'
             byte[] version = br.ReadBytes(32);//32 byte version string: 'OMF-v0.9.0' (other bytes empty)
@@ -104,7 +114,6 @@ namespace OMF
             //}
             //finally
             //{
-            br.Close();
             //}
 
             return returnvalue;
