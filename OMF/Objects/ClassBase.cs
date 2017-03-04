@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace OMF.Objects
 {
-    public class DateAndDescriptionBase : DateBase
+    public class ClassBase
     {
-        public DateAndDescriptionBase()
+        public ClassBase()
         {
-            description = "";
+            __class__ = this.GetType().Name;
         }
-        public string description { get; set; }
+        public string __class__ { get; set; }
     }
 }

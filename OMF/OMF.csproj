@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\ClassBase.cs" />
     <Compile Include="Objects\Helpers.cs" />
     <Compile Include="OMFWriter.cs" />
     <Compile Include="OMFReader.cs" />

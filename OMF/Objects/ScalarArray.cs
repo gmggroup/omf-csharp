@@ -19,7 +19,6 @@ namespace OMF.Objects
             length = _length;
             dtype = _dtype;
         }
-        public string __class__ { get; set; }
         public long start { get; set; }
         public long length { get; set; }
         public string dtype { get; set; }

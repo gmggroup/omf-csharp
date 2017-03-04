@@ -7,11 +7,21 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace OMF.Objects
 {
-	public class LineSetGeometry : DateBase, IObject
-	{
-        public string __class__ { get; set; }
+    public class LineSetGeometry : DateBase, IObject
+    {
+        public LineSetGeometry()
+        {
+
+        }
+        public LineSetGeometry(List<double[]> verts, List<int[]> segments) : this()
+        {
+            origin = new double[] { 0, 0, 0 };
+            Segments = new Int2Array(segments);
+            Vertices = new Vector3Array(verts);
+
+        }
         public double[] origin { get; set; }
-		public string vertices { get; set; }
+        public string vertices { get; set; }
         public string segments { get; set; }
 
         [JsonIgnore]
@@ -21,7 +31,7 @@ namespace OMF.Objects
         public Vector3Array Vertices { get; set; }
 
         public void Deserialize(Dictionary<string, object> json, System.IO.BinaryReader br)
-		{
+        {
             Vertices = (Vector3Array)ObjectFactory.GetObjectFromGuid(json, br, vertices);
             Segments = (Int2Array)ObjectFactory.GetObjectFromGuid(json, br, segments);
         }

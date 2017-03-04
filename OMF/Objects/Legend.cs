@@ -11,7 +11,6 @@ namespace OMF.Objects
     public class Legend : DateAndDescriptionBase, IObject
     {
         public string name { get; set; }
-        public string __class__ { get; set; }
         public string values { get; set; }
 
         [JsonIgnore]

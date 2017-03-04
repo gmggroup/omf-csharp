@@ -9,7 +9,14 @@ namespace OMF.Objects
 {
     public class Vector3Array : DateBase, IObject
     {
-        public string __class__ { get; set; }
+        public Vector3Array()
+        {
+
+        }
+        public Vector3Array(List<double[]> data)
+        {
+            Data = data;
+        }
         public ScalarArray array { get; set; }
 
         [JsonIgnore]

@@ -10,7 +10,6 @@ namespace OMF.Objects
 {
     public class ScalarData : DateBase, IObject
     {
-        public string __class__ { get; set; }
         public string array { get; set; }
         public string location { get; set; }
         public string name { get; set; }

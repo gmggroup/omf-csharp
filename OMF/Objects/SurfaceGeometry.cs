@@ -7,13 +7,22 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace OMF.Objects
 {
-    public class SurfaceGeometry: DateBase, IObject
+    public class SurfaceGeometry : DateBase, IObject
     {
-        public string __class__ { get; set; }
+        public SurfaceGeometry()
+        {
+
+        }
+        public SurfaceGeometry(List<double[]> vertices, List<int[]> faces) : this()
+        {
+            origin = new double[] { 0, 0, 0 };
+            Verticies = new Objects.Vector3Array(vertices);
+            Triangles = new Int3Array(faces);
+        }
         public double[] origin { get; set; }
         public string vertices { get; set; }
         public string triangles { get; set; }
-        
+
 
         [JsonIgnore]
         public Vector3Array Verticies { get; set; }

@@ -7,16 +7,21 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace OMF.Objects
 {
-	public class PointSetElement : DateBase, IObject
+	public class PointSetElement : DateAndDescriptionBase, IObject
 	{
-		public string name { get; set; }
-		public string __class__ { get; set; }
+        public PointSetElement()
+        {
+        }
+        public PointSetElement(List<double[]> data):this()
+        {
+            PointSet = new PointSetGeometry(data);
+        }
+        public string name { get; set; }
 		public byte[] color { get; set; }
 		public string subtype { get; set; }
 		public string geometry { get; set; }
 		
         public string[] data { get; set; }
-		public string description { get; set; }
 
         [JsonIgnore]
         public List<IObject> Objects { get; set; }

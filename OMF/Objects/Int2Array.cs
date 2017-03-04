@@ -9,7 +9,14 @@ namespace OMF.Objects
 {
     public class Int2Array : DateBase, IObject
     {
-        public string __class__ { get; set; }
+        public Int2Array()
+        {
+
+        }
+        public Int2Array(List<int[]> data) : this()
+        {
+            Data = data;
+        }
         public ScalarArray array { get; set; }
 
         [JsonIgnore]
