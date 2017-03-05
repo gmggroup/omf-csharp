@@ -133,6 +133,10 @@ namespace OMF.Objects
         }
         public static IObject GetObjectFromGuid(Dictionary<string, object> jsonDict, BinaryReader br, string guid)
         {
+            if(string.IsNullOrEmpty(guid))
+            {
+                return null;
+            }
             if (jsonDict.ContainsKey(guid))
             {
                 string data = jsonDict[guid].ToString();
