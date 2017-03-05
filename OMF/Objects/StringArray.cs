@@ -18,7 +18,7 @@ namespace OMF.Objects
 
         public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
         {
-            throw new NotImplementedException();
+            ObjectFactory.GetObjectToData(json, this, guid);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace OMF.Objects
 
         public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
         {
-            
+            ObjectFactory.GetObjectToData(json, this, guid);
         }
     }
 }

@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="Objects\ClassBase.cs" />
     <Compile Include="Objects\Helpers.cs" />
+    <Compile Include="Objects\AttributeDefinitionArray.cs" />
+    <Compile Include="Objects\AttributeArray.cs" />
     <Compile Include="OMFWriter.cs" />
     <Compile Include="OMFReader.cs" />
     <Compile Include="Objects\DateAndDescriptionBase.cs" />

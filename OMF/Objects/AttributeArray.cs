@@ -7,29 +7,29 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace OMF.Objects
 {
-    public class Int2Array : DateBase, IObject
+    public class AttributeArray : DateBase, IObject
     {
-        public Int2Array()
+        public AttributeArray()
         {
 
         }
-        public Int2Array(List<int[]> data) : this()
+        public AttributeArray(List<object> data, AttributeDefinitionArray definitions)
         {
-            Data = data;
+            Data = Helpers.GetAttributeByteArray(data, definitions);
         }
         public ScalarArray array { get; set; }
-
+        public string attributedefinition { get; set; }
         [JsonIgnore]
-        public List<int[]> Data { get; set; }
+        public byte[] Data { get; set; }
 
         public void Deserialize(Dictionary<string, object> json, System.IO.BinaryReader br)
         {
-            Data = Helpers.ReadInt2Array(br, array);
+            Data=Helpers.ReadByteArray(br, array);
         }
 
         public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
         {
-            array = Helpers.WriteInt2Array(bw, Data);
+            array = Helpers.WriteByteArray(bw, Data);
 
             ObjectFactory.GetObjectToData(json, this, guid);
         }
