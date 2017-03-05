@@ -83,7 +83,7 @@ namespace OMF
                                 }
                             }
                             break;
-                        case "VOLUMELEMENT":
+                        case "VOLUMEELEMENT":
                             {
                                 OMF.Objects.VolumeElement obj = (OMF.Objects.VolumeElement)OMF.Objects.ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                 if (obj != null)
@@ -101,7 +101,9 @@ namespace OMF
                                 }
                             }
                             break;
+                        default:
 
+                            break;
                     }
                 }
 
