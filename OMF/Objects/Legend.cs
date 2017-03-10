@@ -6,11 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace OMF.Objects
+namespace OMF.Base
 {
-    public class Legend : DateAndDescriptionBase, IObject
+    public class Legend : ContentModel, IObject
     {
-        public string name { get; set; }
         public string values { get; set; }
 
         [JsonIgnore]

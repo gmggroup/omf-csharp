@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMF.Objects
+namespace OMF.Base
 {
-    public class Int3Array : DateBase, IObject
+    public class Int3Array : UidModel, IObject
     {
         public Int3Array()
         {

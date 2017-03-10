@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OMF.Base
+{
+    public interface IObject
+    {
+        string __class__ { get; set; }
+        void Deserialize(Dictionary<string, object> json,System.IO.BinaryReader br);
+        void Serialize(Dictionary<string, object> json, System.IO.BinaryWriter bw,string guid);
+    }
+}

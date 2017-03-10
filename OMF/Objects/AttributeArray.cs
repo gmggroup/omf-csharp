@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-namespace OMF.Objects
+namespace OMF.Base
 {
-    public class AttributeArray : DateBase, IObject
+    public class AttributeArray : UidModel, IObject
     {
         public AttributeArray()
         {

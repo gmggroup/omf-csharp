@@ -19,9 +19,8 @@ namespace OMFTests
             System.Resources.ResourceManager rm = Resources.ResourceManager;
             byte[] bytes = (byte[])rm.GetObject("Wolfpass");
             Stream s = new MemoryStream(bytes);
-            BinaryReader br = new BinaryReader(s);
-
-            torun.Read(br);
+            
+            torun.Read(s);
 
             string fileout = System.IO.Path.GetTempFileName();
 

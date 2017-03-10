@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace OMF.Objects
+namespace OMF.Base
 {
     public static class ObjectFactory
     {
@@ -55,11 +55,11 @@ namespace OMF.Objects
             }
         }
 
-        public static List<OMF.Objects.IObject> DeserializeObjects(Dictionary<string, object> jsonDict, BinaryReader br, string[] guids)
+        public static List<OMF.Base.IObject> DeserializeObjects(Dictionary<string, object> jsonDict, BinaryReader br, string[] guids)
         {
             if (guids != null)
             {
-                List<OMF.Objects.IObject> Objects = new List<OMF.Objects.IObject>();
+                List<OMF.Base.IObject> Objects = new List<OMF.Base.IObject>();
 
                 foreach (string guid in guids)
                 {

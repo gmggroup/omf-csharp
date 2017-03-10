@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-namespace OMF.Objects
+namespace OMF.Base
 {
-    public class Vector3Array : DateBase, IObject
+    public class Vector3Array : UidModel, IObject
     {
         public Vector3Array()
         {

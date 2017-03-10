@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace OMF.Objects
+namespace OMF.Base
 {
     public class Helpers
     {
@@ -173,7 +173,7 @@ namespace OMF.Objects
 
             byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(towrite);
 
-            Objects.ScalarArray array = new Objects.ScalarArray();
+            Base.ScalarArray array = new Base.ScalarArray();
             array.start = bw.BaseStream.Position;
             array.length = compresseddata.Length;
             array.dtype = "<d8";
@@ -186,7 +186,7 @@ namespace OMF.Objects
         {
             byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(data);
 
-            Objects.ScalarArray array = new Objects.ScalarArray();
+            Base.ScalarArray array = new Base.ScalarArray();
             array.start = bw.BaseStream.Position;
             array.length = compresseddata.Length;
             array.dtype = "mixed";
@@ -212,7 +212,7 @@ namespace OMF.Objects
 
             byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(towrite);
 
-            Objects.ScalarArray array = new Objects.ScalarArray();
+            Base.ScalarArray array = new Base.ScalarArray();
             array.start = bw.BaseStream.Position;
             array.length = compresseddata.Length;
             array.dtype = "<i8";
@@ -238,7 +238,7 @@ namespace OMF.Objects
 
             byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(towrite);
             
-            Objects.ScalarArray array = new Objects.ScalarArray();
+            Base.ScalarArray array = new Base.ScalarArray();
             array.start = bw.BaseStream.Position;
             array.length = compresseddata.Length;
             array.dtype = "<i8";

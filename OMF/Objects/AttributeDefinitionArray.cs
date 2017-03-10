@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-namespace OMF.Objects
+namespace OMF.Base
 {
-    public class AttributeDefinitionArray : DateBase, IObject
+    public class AttributeDefinitionArray : UidModel, IObject
     {
         public string[] attributenames { get; set; }
         public int[] attributetypes { get; set; }
