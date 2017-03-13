@@ -35,3 +35,4 @@ bld/
 *.nuget.props
 *.nuget.targets
 project.lock.json
+sh.exe.stackdump
