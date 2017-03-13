@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace OMF.Base
+namespace OMF
 {
     public static class ObjectFactory
     {
@@ -40,11 +40,11 @@ namespace OMF.Base
             }
         }
 
-        public static List<OMF.Base.IObject> DeserializeObjects(Dictionary<string, object> jsonDict, BinaryReader br, string[] guids)
+        public static List<IObject> DeserializeObjects(Dictionary<string, object> jsonDict, BinaryReader br, string[] guids)
         {
             if (guids != null)
             {
-                List<OMF.Base.IObject> Objects = new List<OMF.Base.IObject>();
+                List<IObject> Objects = new List<IObject>();
 
                 foreach (string guid in guids)
                 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace OMF.Base
+namespace OMF
 {
     [Serializable]
     internal class InvalidOmfException : Exception
