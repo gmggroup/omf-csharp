@@ -73,7 +73,7 @@ namespace OMF
                         {
                             case "SURFACEELEMENT":
                                 {
-                                    SurfaceElement obj = (SurfaceElement)Base.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                    SurfaceElement obj = (SurfaceElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                     if (obj != null)
                                     {
                                         SurfaceElements.Add(obj);
@@ -82,7 +82,7 @@ namespace OMF
                                 break;
                             case "POINTSETELEMENT":
                                 {
-                                    PointSetElement obj = (PointSetElement)Base.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                    PointSetElement obj = (PointSetElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                     if (obj != null)
                                     {
                                         PointSetElements.Add(obj);
@@ -91,7 +91,7 @@ namespace OMF
                                 break;
                             case "VOLUMEELEMENT":
                                 {
-                                    VolumeElement obj = (VolumeElement)Base.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                    VolumeElement obj = (VolumeElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                     if (obj != null)
                                     {
                                         VolumeElements.Add(obj);
@@ -100,7 +100,7 @@ namespace OMF
                                 break;
                             case "LINESETELEMENT":
                                 {
-                                    LineSetElement obj = (LineSetElement)Base.ObjectFactory.GetObjectFromData(jsonDict, br, data);
+                                    LineSetElement obj = (LineSetElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
                                     if (obj != null)
                                     {
                                         LineSetElements.Add(obj);

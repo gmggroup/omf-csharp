@@ -14,40 +14,57 @@ namespace OMFTests
         [Test]
         public void RoundTrip()
         {
-            OMFReader torun = new OMFReader();
-
+            // Retrieve data from Resources
             System.Resources.ResourceManager rm = Resources.ResourceManager;
             byte[] bytes = (byte[])rm.GetObject("Wolfpass");
-            Stream s = new MemoryStream(bytes);
+            Stream originalStream = new MemoryStream(bytes);
             
-            torun.Read(s);
+            //Read in the original data
+            OMFReader originalData = new OMFReader();
+            originalData.Read(originalStream);
+            
+            //Make a copy
+            OMFWriter writeData = new OMFWriter();
+            writeData.LineSetElements = originalData.LineSetElements;
+            writeData.PointSetElements = originalData.PointSetElements;
+            writeData.SurfaceElements = originalData.SurfaceElements;
+            writeData.VolumeElements = originalData.VolumeElements;
 
-            string fileout = System.IO.Path.GetTempFileName();
+            //Write the copy data
+            var writeStream = new MemoryStream();
+            writeData.Write(writeStream);
 
-            OMFWriter towrite = new OMFWriter();
-            towrite.LineSetElements = torun.LineSetElements;
-            towrite.PointSetElements = torun.PointSetElements;
-            towrite.SurfaceElements = torun.SurfaceElements;
-            towrite.VolumeElements = torun.VolumeElements;
-            towrite.Write(fileout);
+            //Read the copy data
+            var readStream = new MemoryStream(writeStream.ToArray());
+            OMFReader readData = new OMFReader();
+            readData.Read(readStream);
 
 
-            OMFReader roundTrip = new OMF.OMFReader();
-            roundTrip.Read(fileout);
+            // test with actual file output
 
-            try
-            {
-                System.IO.File.Delete(fileout);
-            }
-            catch
-            {
+            //try
+            //{
+            //    string fileout = Path.GetTempFileName();
+            //    writeData.Write(fileout);
+            //    readData.Read(fileout);
+            //    System.IO.File.Delete(fileout);
+            //}
+            //catch
+            //{
 
-            }
+            //}
 
-            Assert.AreEqual(towrite.LineSetElements.Count, roundTrip.LineSetElements.Count, "Mismatch in LineSetElements count");
-            Assert.AreEqual(towrite.PointSetElements.Count, roundTrip.PointSetElements.Count, "Mismatch in PointSetElements count");
-            Assert.AreEqual(towrite.SurfaceElements.Count, roundTrip.SurfaceElements.Count, "Mismatch in SurfaceElements count");
-            Assert.AreEqual(towrite.VolumeElements.Count, roundTrip.VolumeElements.Count, "Mismatch in VolumeElements count");
+            //Check that the write and read copy data are the same
+            Assert.AreEqual(writeData.LineSetElements.Count, readData.LineSetElements.Count, "Mismatch in LineSetElements count vs. write");
+            Assert.AreEqual(writeData.PointSetElements.Count, readData.PointSetElements.Count, "Mismatch in PointSetElements count vs. write");
+            Assert.AreEqual(writeData.SurfaceElements.Count, readData.SurfaceElements.Count, "Mismatch in SurfaceElements count vs. write");
+            Assert.AreEqual(writeData.VolumeElements.Count, readData.VolumeElements.Count, "Mismatch in VolumeElements count vs. write");
+
+            //Check that the original and read copy data are the same
+            Assert.AreEqual(originalData.LineSetElements.Count, readData.LineSetElements.Count, "Mismatch in LineSetElements count vs. original");
+            Assert.AreEqual(originalData.PointSetElements.Count, readData.PointSetElements.Count, "Mismatch in PointSetElements count vs. original");
+            Assert.AreEqual(originalData.SurfaceElements.Count, readData.SurfaceElements.Count, "Mismatch in SurfaceElements count vs. original");
+            Assert.AreEqual(originalData.VolumeElements.Count, readData.VolumeElements.Count, "Mismatch in VolumeElements count vs. original");
 
         }
     }
