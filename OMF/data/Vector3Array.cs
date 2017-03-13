@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OMF.Base;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-namespace OMF.Base
+
+namespace OMF
 {
     public class Vector3Array : UidModel, IObject
     {

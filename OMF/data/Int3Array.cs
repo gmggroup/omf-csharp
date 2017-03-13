@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
+using OMF.Base;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OMF.Base
+namespace OMF
 {
     public class Int3Array : UidModel, IObject
     {
