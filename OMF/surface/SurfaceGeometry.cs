@@ -14,7 +14,7 @@ namespace OMF
         public SurfaceGeometry(List<double[]> vertices, List<int[]> faces) : this()
         {
             origin = new double[] { 0, 0, 0 };
-            Verticies = new Base.Vector3Array(vertices);
+            Verticies = new Vector3Array(vertices);
             Triangles = new Int3Array(faces);
         }
         public double[] origin { get; set; }

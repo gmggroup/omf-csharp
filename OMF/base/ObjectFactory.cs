@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.IO;
+using System.Linq;
 
 namespace OMF.Base
 {
@@ -13,29 +11,15 @@ namespace OMF.Base
         public class TypeSingleton
         {
             private static TypeSingleton instance;
+            public Dictionary<string, Type> ObjectTypes { get; internal set; }
 
             private TypeSingleton() { }
 
-            private Dictionary<string, Type> m_ObjectTypes;
-
-            public Dictionary<string, Type> ObjectTypes
-            {
-                get
-                {
-                    return m_ObjectTypes;
-                }
-            }
             public Type GetObjectType(string className)
             {
-                if (m_ObjectTypes.ContainsKey(className))
-                {
-                    return m_ObjectTypes[className];
-                }
-                else
-                {
-                    return null;
-                }
+                return (ObjectTypes.ContainsKey(className))? ObjectTypes[className] : null;
             }
+
             public static TypeSingleton Instance
             {
                 get
@@ -43,11 +27,12 @@ namespace OMF.Base
                     if (instance == null)
                     {
                         instance = new TypeSingleton();
-                        instance.m_ObjectTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+                        instance.ObjectTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
 
-                        foreach (Type mytype in System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(mytype => mytype.GetInterfaces().Contains(typeof(IObject))))
+                        foreach (Type mytype in System.Reflection.Assembly.GetExecutingAssembly().GetTypes()
+                                            .Where(mytype => mytype.GetInterfaces().Contains(typeof(IObject))))
                         {
-                            instance.m_ObjectTypes.Add(mytype.Name, mytype);
+                            instance.ObjectTypes.Add(mytype.Name, mytype);
                         }
                     }
                     return instance;
@@ -74,11 +59,13 @@ namespace OMF.Base
             }
             return null;
         }
+
         public static void GetObjectToData(Dictionary<string, object> jsonDict, IObject toSerialize,string guid)
         {
             string jsonString = JsonConvert.SerializeObject(toSerialize);
             jsonDict.Add(guid, jsonString);
         }
+
         public static string SerializeObject(IObject objs, Dictionary<string, object> jsonDict, BinaryWriter bw)
         {
             
@@ -93,6 +80,7 @@ namespace OMF.Base
                 return guid;
             }
         }
+
         public static string[] SerializeObjects(List<IObject> objs, Dictionary<string, object> jsonDict, BinaryWriter bw)
         {
             if(objs==null)
@@ -108,6 +96,7 @@ namespace OMF.Base
             }
             return guids.ToArray();
         }
+
         public static IObject GetObjectFromData(Dictionary<string, object> jsonDict, BinaryReader br, string data)
         {
             Dictionary<string, object> thisDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
@@ -131,12 +120,14 @@ namespace OMF.Base
 
             return null;
         }
+
         public static IObject GetObjectFromGuid(Dictionary<string, object> jsonDict, BinaryReader br, string guid)
         {
             if(string.IsNullOrEmpty(guid))
             {
                 return null;
             }
+
             if (jsonDict.ContainsKey(guid))
             {
                 string data = jsonDict[guid].ToString();

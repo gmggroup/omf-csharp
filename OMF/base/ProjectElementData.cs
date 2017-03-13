@@ -9,7 +9,7 @@ namespace OMF
     /// <summary>
     /// Data array with values at specific locations on the mesh
     /// </summary>
-    public class ProjectElementData:ContentModel
+    public class ProjectElementData<T>:ContentModel
     {
         public enum LocationType
         {
@@ -18,6 +18,9 @@ namespace OMF
             faces,
             cells
         }
+
+        public LocationType location { get; set; }
+        public virtual List<T> array { get; set; }
 
     }
 
