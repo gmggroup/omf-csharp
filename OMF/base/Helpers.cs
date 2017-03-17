@@ -93,7 +93,7 @@ namespace OMF
 
             byte[] data = br.ReadBytes((int)(array.length));
 
-            byte[] newdata = Ionic.Zlib.ZlibStream.UncompressBuffer(data);
+            byte[] newdata = data.Uncompress();
             for (int i = 0; i < newdata.Length; i = i + 24)
             {
                 double[] toadd = new double[3];
@@ -112,7 +112,7 @@ namespace OMF
 
             byte[] data = br.ReadBytes((int)(array.length));
 
-            byte[] newdata = Ionic.Zlib.ZlibStream.UncompressBuffer(data);
+            byte[] newdata = data.Uncompress();
             for (int i = 0; i < newdata.Length; i = i + 24)
             {
                 int[] toadd = new int[3];
@@ -131,7 +131,7 @@ namespace OMF
 
             byte[] data = br.ReadBytes((int)(array.length));
 
-            byte[] newdata = Ionic.Zlib.ZlibStream.UncompressBuffer(data);
+            byte[] newdata = data.Uncompress();
             for (int i = 0; i < newdata.Length; i = i + 16)
             {
                 int[] toadd = new int[2];
@@ -149,7 +149,7 @@ namespace OMF
 
             byte[] data = br.ReadBytes((int)(array.length));
 
-            byte[] newdata = Ionic.Zlib.ZlibStream.UncompressBuffer(data);
+            byte[] newdata = data.Uncompress();
 
             return newdata;
         }
@@ -169,7 +169,7 @@ namespace OMF
                 pos += 8;
             }
 
-            byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(towrite);
+            byte[] compresseddata = towrite.Compress();
 
             ScalarArray array = new ScalarArray();
             array.start = bw.BaseStream.Position;
@@ -182,7 +182,7 @@ namespace OMF
         }
         public static ScalarArray WriteByteArray(BinaryWriter bw, byte[] data)
         {
-            byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(data);
+            byte[] compresseddata = data.Compress();
 
             ScalarArray array = new ScalarArray();
             array.start = bw.BaseStream.Position;
@@ -208,7 +208,7 @@ namespace OMF
                 pos += 8;
             }
 
-            byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(towrite);
+            byte[] compresseddata = towrite.Compress();
 
             ScalarArray array = new ScalarArray();
             array.start = bw.BaseStream.Position;
@@ -234,7 +234,7 @@ namespace OMF
                 pos += 8;
             }
 
-            byte[] compresseddata = Ionic.Zlib.ZlibStream.CompressBuffer(towrite);
+            byte[] compresseddata = towrite.Compress();
             
             ScalarArray array = new ScalarArray();
             array.start = bw.BaseStream.Position;
@@ -245,5 +245,6 @@ namespace OMF
 
             return array;
         }
+        
     }
 }

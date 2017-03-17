@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="base\ByteExtention.cs" />
     <Compile Include="base\ClassBase.cs" />
     <Compile Include="base\ProjectElementData.cs" />
     <Compile Include="base\ProjectElementGeometry.cs" />

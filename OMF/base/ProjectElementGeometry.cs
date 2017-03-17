@@ -8,7 +8,20 @@ namespace OMF
 {
     public class ProjectElementGeometry: UidModel
     {
-        public Tuple<double,double,double> origin { get; set; }
+        public double[] origin { get; set; }
+        public virtual int LocationLength()
+        {
+            throw new NotImplementedException("Location Length not implemented");
+        }
 
+        public virtual int NumberOfNodes()
+        {
+            throw new NotImplementedException("Location Length not implemented");
+        }
+
+        public virtual int NumberOfCells()
+        {
+            throw new NotImplementedException("Location Length not implemented");
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-namespace OMF.Base
+
+namespace OMF
 {
     public class AttributeDefinitionArray : UidModel, IObject
     {

@@ -3,14 +3,13 @@ using System.IO;
 
 namespace OMF
 {
-    public class VolumeGridGeometry : UidModel, IObject
+    public class VolumeGridGeometry : ProjectElementGeometry, IObject
     {
         public VolumeGridGeometry()
         {
 
         }
 
-        public double[] origin { get; set; }
         public double[] axis_u { get; set; }
         public double[] axis_v { get; set; }
         public double[] axis_w { get; set; }

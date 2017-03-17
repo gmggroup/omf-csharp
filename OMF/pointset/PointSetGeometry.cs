@@ -4,7 +4,7 @@ using System.IO;
 
 namespace OMF
 {
-    public class PointSetGeometry : UidModel, IObject
+    public class PointSetGeometry : ProjectElementGeometry, IObject
     {
         public PointSetGeometry()
         {
@@ -16,8 +16,7 @@ namespace OMF
             Verticies = new Vector3Array(data);
         }
         
-        public double[] origin { get; set; }
-        public string vertices { get; set; }
+        private string vertices { get; set; }
 
         [JsonIgnore]
         public Vector3Array Verticies { get; set; }

@@ -37,7 +37,6 @@ namespace OMF
         public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
         {
             geometry = ObjectFactory.SerializeObject(PointSet, json, bw);
-
             data = ObjectFactory.SerializeObjects(Objects, json, bw);
 
             ObjectFactory.GetObjectToData(json, this, guid);

@@ -28,7 +28,6 @@ namespace OMF
         {
             //need to fill up the json Dictionary then write the binary data
             geometry = ObjectFactory.SerializeObject(VolumeGrid, json, bw);
-            
             data=ObjectFactory.SerializeObjects(Objects, json, bw);
 
             ObjectFactory.GetObjectToData(json, this, guid);

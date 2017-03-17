@@ -4,7 +4,7 @@ using System.IO;
 
 namespace OMF
 {
-    public class SurfaceGeometry : UidModel, IObject
+    public class SurfaceGeometry : ProjectElementGeometry, IObject
     {
         public SurfaceGeometry()
         {
@@ -16,9 +16,8 @@ namespace OMF
             Verticies = new Vector3Array(vertices);
             Triangles = new Int3Array(faces);
         }
-        public double[] origin { get; set; }
-        public string vertices { get; set; }
-        public string triangles { get; set; }
+        private string vertices { get; set; }
+        private string triangles { get; set; }
 
 
         [JsonIgnore]

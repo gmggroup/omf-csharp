@@ -20,7 +20,7 @@ namespace OMF
         }
 
         public LocationType location { get; set; }
-
+        
     }
 
     

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,19 +37,20 @@ namespace OMF
         public List<VolumeElement> VolumeElements { get; private set; }
         public List<LineSetElement> LineSetElements { get; private set; }
 
-        public bool Read(string file)
+        public Project Read(string file)
         {
             return Read(File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite));
         }
 
-        public bool Read(Stream filestream)
+        public Project Read(Stream filestream)
         {
-            bool returnvalue = true;
+            Project proj = new Project();
+
             using (BinaryReader br = new BinaryReader(filestream))
             {
                 // Header 60 bytes
                 var headerResult = ReadHeader(br.ReadBytes(60));
-                Guid uid = headerResult.Item1;
+                Guid fileUid = headerResult.Item1;
                 ulong jsonPosition = headerResult.Item2;
                 long postionofBlob = br.BaseStream.Position;
 
@@ -57,9 +59,10 @@ namespace OMF
                 byte[] jsonbytes = br.ReadBytes(Convert.ToInt32(br.BaseStream.Length - (long)jsonPosition));
                 string jsonstring = Encoding.UTF8.GetString(jsonbytes);
 
-
                 //Decode 
                 Dictionary<string, object> jsonDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonstring);
+
+                
 
                 foreach (string id in jsonDict.Keys)
                 {
@@ -115,7 +118,7 @@ namespace OMF
                 }
 
             }
-            return returnvalue;
+            return proj;
 
         }
 

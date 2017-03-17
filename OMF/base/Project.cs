@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.IO;
 
 namespace OMF
 {
     /// <summary>
     /// OMF Project for serializing to .omf file
     /// </summary>
-    public class Project : ContentModel
+    public class Project : ContentModel, IObject
     {
         /// <summary>
         /// Author
@@ -32,6 +32,20 @@ namespace OMF
         /// <summary>
         /// Origin point for all elements in the project
         /// </summary>
-        public Tuple<double,double,double> origin { get; set; }
+        public double[] origin { get; set; }
+
+        public void Deserialize(Dictionary<string, object> json, BinaryReader br)
+        {
+            //Geometry = (LineSetGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
+            //Objects = ObjectFactory.DeserializeObjects(json, br, data);
+        }
+
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        {
+            //geometry = ObjectFactory.SerializeObject(Geometry, json, bw);
+            //data = ObjectFactory.SerializeObjects(Objects, json, bw);
+
+            //ObjectFactory.GetObjectToData(json, this, guid);
+        }
     }
 }

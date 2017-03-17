@@ -21,7 +21,7 @@ namespace OMFTests
             
             //Read in the original data
             OMFReader originalData = new OMFReader();
-            originalData.Read(originalStream);
+            Project proj = originalData.Read(originalStream);
             
             //Make a copy
             OMFWriter writeData = new OMFWriter();
@@ -37,16 +37,16 @@ namespace OMFTests
             //Read the copy data
             var readStream = new MemoryStream(writeStream.ToArray());
             OMFReader readData = new OMFReader();
-            readData.Read(readStream);
+            proj = readData.Read(readStream);
 
 
             // test with actual file output
 
             //try
             //{
-            //    string fileout = Path.GetTempFileName();
-            //    writeData.Write(fileout);
-            //    readData.Read(fileout);
+            string fileout = Path.GetTempFileName();
+            writeData.Write(fileout);
+            //readData.Read(fileout);
             //    System.IO.File.Delete(fileout);
             //}
             //catch

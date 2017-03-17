@@ -4,7 +4,7 @@ using System.IO;
 
 namespace OMF
 {
-    public class LineSetGeometry : UidModel, IObject
+    public class LineSetGeometry : ProjectElementGeometry, IObject
     {
         public LineSetGeometry()
         {
@@ -17,9 +17,9 @@ namespace OMF
             Vertices = new Vector3Array(verts);
 
         }
-        public double[] origin { get; set; }
-        public string vertices { get; set; }
-        public string segments { get; set; }
+
+        private string vertices { get; set; }
+        private string segments { get; set; }
 
         [JsonIgnore]
         public Int2Array Segments { get; set; }
@@ -27,7 +27,7 @@ namespace OMF
         [JsonIgnore]
         public Vector3Array Vertices { get; set; }
 
-        public void Deserialize(Dictionary<string, object> json, System.IO.BinaryReader br)
+        public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
             Vertices = (Vector3Array)ObjectFactory.GetObjectFromGuid(json, br, vertices);
             Segments = (Int2Array)ObjectFactory.GetObjectFromGuid(json, br, segments);
