@@ -31,25 +31,13 @@ namespace OMF
     /// </summary>
     public class OMFWriter
     {
-        public OMFWriter()
+        
+        public bool Write(Project project, string file)
         {
-            SurfaceElements = new List<SurfaceElement>();
-            PointSetElements = new List<PointSetElement>();
-            LineSetElements = new List<LineSetElement>();
-            VolumeElements = new List<VolumeElement>();
+            return Write(project, File.Open(file, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None));
         }
 
-        public List<SurfaceElement> SurfaceElements { get; set; }
-        public List<PointSetElement> PointSetElements { get; set; }
-        public List<VolumeElement> VolumeElements { get; set; }
-        public List<LineSetElement> LineSetElements { get; set; }
-
-        public bool Write(string file)
-        {
-            return Write(File.Open(file, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None));
-        }
-
-        public bool Write(Stream filestream)
+        public bool Write(Project project, Stream filestream)
         {
             bool returnvalue = true;
 
@@ -59,30 +47,10 @@ namespace OMF
 
                 Dictionary<string, object> json = new Dictionary<string, object>();
                 //now write the binary data
-
-                if (SurfaceElements != null)
-                    for (int i = 0; i < SurfaceElements.Count; i++)
-                    {
-                        SurfaceElements[i].Serialize(json, bw, Guid.NewGuid().ToString());
-                    }
-
-                if (PointSetElements != null)
-                    for (int i = 0; i < PointSetElements.Count; i++)
-                    {
-                        PointSetElements[i].Serialize(json, bw, Guid.NewGuid().ToString());
-                    }
-
-                if (VolumeElements != null)
-                    for (int i = 0; i < VolumeElements.Count; i++)
-                    {
-                        VolumeElements[i].Serialize(json, bw, Guid.NewGuid().ToString());
-                    }
-
-                if (LineSetElements != null)
-                    for (int i = 0; i < LineSetElements.Count; i++)
-                    {
-                        LineSetElements[i].Serialize(json, bw, Guid.NewGuid().ToString());
-                    }
+                var projectUid = ObjectFactory.SerializeObject(project, json, bw);
+                
+                ObjectFactory.GetObjectToData(json, project, projectUid);
+                project.Serialize(json, bw, projectUid);
 
                 UInt64 jsonPosition = (UInt64)bw.BaseStream.Position;
 

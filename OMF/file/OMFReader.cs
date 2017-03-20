@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -25,17 +26,6 @@ namespace OMF
     /// </summary>
     public class OMFReader
     {
-        public OMFReader()
-        {
-            SurfaceElements = new List<SurfaceElement>();
-            PointSetElements = new List<PointSetElement>();
-            LineSetElements = new List<LineSetElement>();
-            VolumeElements = new List<VolumeElement>();
-        }
-        public List<SurfaceElement> SurfaceElements { get; private set; }
-        public List<PointSetElement> PointSetElements { get; private set; }
-        public List<VolumeElement> VolumeElements { get; private set; }
-        public List<LineSetElement> LineSetElements { get; private set; }
 
         public Project Read(string file)
         {
@@ -44,82 +34,36 @@ namespace OMF
 
         public Project Read(Stream filestream)
         {
-            Project proj = new Project();
+            Project project = new Project();
 
             using (BinaryReader br = new BinaryReader(filestream))
             {
                 // Header 60 bytes
                 var headerResult = ReadHeader(br.ReadBytes(60));
-                Guid fileUid = headerResult.Item1;
+                Guid projectUid = headerResult.Item1;
                 ulong jsonPosition = headerResult.Item2;
                 long postionofBlob = br.BaseStream.Position;
 
-                //Read the json string
-                br.BaseStream.Seek((long)jsonPosition, SeekOrigin.Begin);
-                byte[] jsonbytes = br.ReadBytes(Convert.ToInt32(br.BaseStream.Length - (long)jsonPosition));
-                string jsonstring = Encoding.UTF8.GetString(jsonbytes);
-
-                //Decode 
+                //JSON objects
+                string jsonstring = ReadJson(br, jsonPosition);
                 Dictionary<string, object> jsonDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonstring);
 
+
+                //Project object
+                project = (Project)ObjectFactory.GetObjectFromGuid(jsonDict, br, projectUid.ToString());
+                project.Deserialize(jsonDict, br);
                 
-
-                foreach (string id in jsonDict.Keys)
-                {
-                    string data = jsonDict[id].ToString();
-                    Dictionary<string, object> thisDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
-
-                    if (thisDict.ContainsKey("__class__"))
-                    {
-                        switch (thisDict["__class__"].ToString().ToUpper())
-                        {
-                            case "SURFACEELEMENT":
-                                {
-                                    SurfaceElement obj = (SurfaceElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
-                                    if (obj != null)
-                                    {
-                                        SurfaceElements.Add(obj);
-                                    }
-                                }
-                                break;
-                            case "POINTSETELEMENT":
-                                {
-                                    PointSetElement obj = (PointSetElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
-                                    if (obj != null)
-                                    {
-                                        PointSetElements.Add(obj);
-                                    }
-                                }
-                                break;
-                            case "VOLUMEELEMENT":
-                                {
-                                    VolumeElement obj = (VolumeElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
-                                    if (obj != null)
-                                    {
-                                        VolumeElements.Add(obj);
-                                    }
-                                }
-                                break;
-                            case "LINESETELEMENT":
-                                {
-                                    LineSetElement obj = (LineSetElement)ObjectFactory.GetObjectFromData(jsonDict, br, data);
-                                    if (obj != null)
-                                    {
-                                        LineSetElements.Add(obj);
-                                    }
-                                }
-                                break;
-                            default:
-
-                                break;
-                        }
-                    }
-
-                }
-
             }
-            return proj;
+            return project;
 
+        }
+
+        private static string ReadJson(BinaryReader br, ulong jsonPosition)
+        {
+            //Read the json string
+            br.BaseStream.Seek((long)jsonPosition, SeekOrigin.Begin);
+            byte[] jsonbytes = br.ReadBytes(Convert.ToInt32(br.BaseStream.Length - (long)jsonPosition));
+            return Encoding.UTF8.GetString(jsonbytes);
         }
 
         private static Tuple<Guid,ulong> ReadHeader(byte[] bytearray)
@@ -141,9 +85,8 @@ namespace OMF
             }
 
             //project uid 16 bytes
-            string uidString = Encoding.UTF8.GetString(bytearray, 36, 16);
-            Guid uid;
-            Guid.TryParse(uidString, out uid);
+            string uidString = BitConverter.ToString(bytearray, 36, 16).Replace("-", string.Empty);
+            Guid uid = new Guid(uidString);
 
             //json Position ulong (8bytes)
             ulong jsonPosition = BitConverter.ToUInt64(bytearray ,52);
