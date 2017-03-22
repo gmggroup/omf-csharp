@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace OMF
 {
@@ -43,32 +45,33 @@ namespace OMF
 
             using (BinaryWriter bw = new BinaryWriter(filestream))
             {
-                bw.Write(CreateHeader());
+                bw.Write(CreateHeader(project.uid.ToString()));
 
                 Dictionary<string, object> json = new Dictionary<string, object>();
                 //now write the binary data
                 var projectUid = ObjectFactory.SerializeObject(project, json, bw);
-                
+
                 ObjectFactory.GetObjectToData(json, project, projectUid);
-                project.Serialize(json, bw, projectUid);
 
                 UInt64 jsonPosition = (UInt64)bw.BaseStream.Position;
 
                 //json string to the file
                 string jsonString = JsonConvert.SerializeObject(json);
                 bw.Write(Encoding.UTF8.GetBytes(jsonString));
-
-
-                //TODO - make function of this update
-                bw.Seek(52, SeekOrigin.Begin);
-                bw.Write(jsonPosition);
+                UpdateJsonPosition(bw, jsonPosition);
             }
 
             return returnvalue;
 
         }
 
-        private static byte[] CreateHeader()
+        private static void UpdateJsonPosition(BinaryWriter bw, ulong jsonPosition)
+        {
+            bw.Seek(52, SeekOrigin.Begin);
+            bw.Write(jsonPosition);
+        }
+
+        private static byte[] CreateHeader(string uid)
         {
             List<byte> header = new List<byte>();
 
@@ -82,8 +85,9 @@ namespace OMF
             header.AddRange(version);
 
             //project uid 16 bytes
-            byte[] uid = new byte[16];
-            header.AddRange(uid);
+            //byte[] uidBytes = Encoding.UTF8.GetBytes(uid);
+            byte[] uidBytes = uid.Replace("-","").Chunks(2).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
+            header.AddRange(uidBytes);
 
             //json Position ulong (8bytes)
             byte[] jsonPosition = new byte[8];

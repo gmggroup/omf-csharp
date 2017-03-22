@@ -39,8 +39,8 @@ namespace OMFTests
             //try
             //{
             //string fileout = Path.GetTempFileName();
-            //writeData.Write(fileout);
-            //readData.Read(fileout);
+            //writeData.Write(proj, fileout);
+            //readData.Read(proj, fileout);
             //    System.IO.File.Delete(fileout);
             //}
             //catch
@@ -49,11 +49,11 @@ namespace OMFTests
             //}
 
             //Check that the write and read copy data are the same
-            Assert.AreEqual(proj.LineSetElements.Count, projNew.LineSetElements.Count, "Mismatch in LineSetElements count vs. write");
-            Assert.AreEqual(proj.PointSetElements.Count, projNew.PointSetElements.Count, "Mismatch in PointSetElements count vs. write");
-            Assert.AreEqual(proj.SurfaceElements.Count, projNew.SurfaceElements.Count, "Mismatch in SurfaceElements count vs. write");
-            Assert.AreEqual(proj.VolumeElements.Count, projNew.VolumeElements.Count, "Mismatch in VolumeElements count vs. write");
-
+            Assert.AreEqual(proj.LineSetElements.Count, projNew.LineSetElements.Count, "Mismatch in LineSetElements count");
+            Assert.AreEqual(proj.PointSetElements.Count, projNew.PointSetElements.Count, "Mismatch in PointSetElements count");
+            Assert.AreEqual(proj.SurfaceElements.Count, projNew.SurfaceElements.Count, "Mismatch in SurfaceElements count");
+            Assert.AreEqual(proj.VolumeElements.Count, projNew.VolumeElements.Count, "Mismatch in VolumeElements count");
+            Assert.AreEqual(proj.uid, projNew.uid, "Mismatch in project uid");
         }
     }
 }

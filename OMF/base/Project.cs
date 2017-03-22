@@ -38,7 +38,7 @@ namespace OMF
         /// <summary>
         /// Project Elements
         /// </summary>
-        public string elements { get; set; }
+        public string[] elements { get; set; }
 
         [JsonIgnore]
         public List<SurfaceElement> SurfaceElements { get; set; }
@@ -53,6 +53,11 @@ namespace OMF
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
+            SurfaceElements = new List<SurfaceElement>();
+            PointSetElements = new List<PointSetElement>();
+            VolumeElements = new List<VolumeElement>();
+            LineSetElements = new List<LineSetElement>();
+
             foreach (string id in json.Keys)
             {
                 string data = json[id].ToString();
@@ -120,8 +125,7 @@ namespace OMF
 
             if (VolumeElements != null)
                 VolumeElements.ForEach(elem => elem.Serialize(json, bw, Guid.NewGuid().ToString()));
-            
-            ObjectFactory.GetObjectToData(json, this, guid);
+
         }
     }
 }

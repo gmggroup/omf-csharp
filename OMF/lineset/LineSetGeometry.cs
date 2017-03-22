@@ -18,8 +18,8 @@ namespace OMF
 
         }
 
-        private string vertices { get; set; }
-        private string segments { get; set; }
+        public string vertices { get; set; }
+        public string segments { get; set; }
 
         [JsonIgnore]
         public Int2Array Segments { get; set; }

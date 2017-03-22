@@ -51,6 +51,7 @@ namespace OMF
 
                 //Project object
                 project = (Project)ObjectFactory.GetObjectFromGuid(jsonDict, br, projectUid.ToString());
+                project.uid = projectUid;
                 project.Deserialize(jsonDict, br);
                 
             }

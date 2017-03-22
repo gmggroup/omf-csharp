@@ -75,7 +75,7 @@ namespace OMF
             }
             else
             {
-                string guid = Guid.NewGuid().ToString();
+                string guid = ((UidModel)objs).uid.ToString();
                 objs.Serialize(jsonDict, bw, guid);
                 return guid;
             }
@@ -124,9 +124,9 @@ namespace OMF
         public static IObject GetObjectFromGuid(Dictionary<string, object> jsonDict, BinaryReader br, string guid)
         {
 
-            if (jsonDict.ContainsKey(guid.ToString()))
+            if (jsonDict.ContainsKey(guid))
             {
-                string data = jsonDict[guid.ToString()].ToString();
+                string data = jsonDict[guid].ToString();
 
                 return GetObjectFromData(jsonDict, br, data);
             }

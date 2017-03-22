@@ -16,8 +16,8 @@ namespace OMF
             Verticies = new Vector3Array(vertices);
             Triangles = new Int3Array(faces);
         }
-        private string vertices { get; set; }
-        private string triangles { get; set; }
+        public string vertices { get; set; }
+        public string triangles { get; set; }
 
 
         [JsonIgnore]

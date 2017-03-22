@@ -32,7 +32,7 @@ namespace OMF
         /// Date project was created
         /// </summary>
         public DateTime date_created { get; private set; }
-
+        
         /// <summary>
         /// Update date_modified if any contained UidModel has been modified
         /// </summary>
@@ -40,5 +40,6 @@ namespace OMF
         {
             date_modified = DateTime.Now;
         }
+
     }
 }

@@ -16,7 +16,7 @@ namespace OMF
             Verticies = new Vector3Array(data);
         }
         
-        private string vertices { get; set; }
+        public string vertices { get; set; }
 
         [JsonIgnore]
         public Vector3Array Verticies { get; set; }

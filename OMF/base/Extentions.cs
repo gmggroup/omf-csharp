@@ -1,9 +1,11 @@
 ﻿using System;
 using Ionic.Zlib;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OMF
 {
-    public static class ByteExtention
+    public static class Extentions
     {
 
         public static byte[] Compress(this byte[] value)
@@ -42,6 +44,12 @@ namespace OMF
 
             // Uncompress
             return ZlibStream.UncompressBuffer(destination);
+        }
+        
+        public static IEnumerable<string> Chunks(this string str, int chunkSize)
+        {
+            return Enumerable.Range(0, str.Length / chunkSize)
+                .Select(i => str.Substring(i * chunkSize, chunkSize));
         }
     }
 }
