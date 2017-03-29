@@ -85,7 +85,6 @@ namespace OMF
             header.AddRange(version);
 
             //project uid 16 bytes
-            //byte[] uidBytes = Encoding.UTF8.GetBytes(uid);
             byte[] uidBytes = uid.Replace("-","").Chunks(2).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
             header.AddRange(uidBytes);
 
