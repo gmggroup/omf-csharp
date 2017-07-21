@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 
 namespace OMF
 {
@@ -23,14 +25,17 @@ namespace OMF
         /// <summary>
         /// Unique identifier
         /// </summary>
+        [JsonIgnore]
         public Guid uid { get; set; }
         /// <summary>
         /// Date project was modified
         /// </summary>
+        [JsonConverter(typeof(OMFDateTimeConverter))]
         public DateTime date_modified { get; private set; }
         /// <summary>
         /// Date project was created
         /// </summary>
+        [JsonConverter(typeof(OMFDateTimeConverter))]
         public DateTime date_created { get; private set; }
         
         /// <summary>
@@ -41,5 +46,12 @@ namespace OMF
             date_modified = DateTime.Now;
         }
 
+    }
+    class OMFDateTimeConverter : IsoDateTimeConverter
+    {
+        public OMFDateTimeConverter()
+        {
+            base.DateTimeFormat = "yyyy-MM-ddTHH:mm:ssZ";
+        }
     }
 }

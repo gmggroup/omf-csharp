@@ -16,11 +16,11 @@ namespace OMF
             Colors = (ColorArray)ObjectFactory.GetObjectFromGuid(json, br, values);
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
             values = ObjectFactory.SerializeObject(Colors, json, bw);
 
-            ObjectFactory.GetObjectToData(json, this, guid);
+            ObjectFactory.GetObjectToData(json, this, uid.ToString());
         }
     }
 }

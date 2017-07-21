@@ -26,11 +26,11 @@ namespace OMF
             Verticies = (Vector3Array)ObjectFactory.GetObjectFromGuid(json, br, vertices);
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
             vertices = ObjectFactory.SerializeObject(Verticies, json, bw);
 
-            ObjectFactory.GetObjectToData(json, this, guid);
+            ObjectFactory.GetObjectToData(json, this, uid.ToString());
         }
     }
 }

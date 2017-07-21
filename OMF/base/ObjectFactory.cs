@@ -76,7 +76,7 @@ namespace OMF
             else
             {
                 string guid = ((UidModel)objs).uid.ToString();
-                objs.Serialize(jsonDict, bw, guid);
+                objs.Serialize(jsonDict, bw);
                 return guid;
             }
         }
@@ -90,9 +90,8 @@ namespace OMF
             List<string> guids = new List<string>();
             for (int i = 0; i < objs.Count; i++)
             {
-                string thisGuid = Guid.NewGuid().ToString();
-                guids.Add(thisGuid);
-                objs[i].Serialize(jsonDict, bw, thisGuid);
+                guids.Add(((UidModel)objs[i]).uid.ToString());
+                objs[i].Serialize(jsonDict, bw);
             }
             return guids.ToArray();
         }

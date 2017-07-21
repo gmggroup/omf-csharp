@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace OMF
 {
@@ -23,6 +25,7 @@ namespace OMF
         /// <summary>
         /// Date associated with the project data
         /// </summary>
+        [JsonConverter(typeof(OMFDateTimeConverter))]
         public DateTime date { get; set; }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace OMF
         /// <summary>
         /// Project Elements
         /// </summary>
-        public string[] elements { get; set; }
+        public List<String> elements { get; set; }
 
         [JsonIgnore]
         public List<SurfaceElement> SurfaceElements { get; set; }
@@ -49,7 +52,7 @@ namespace OMF
         [JsonIgnore]
         public List<LineSetElement> LineSetElements { get; set; }
 
-        
+
 
         public void Deserialize(Dictionary<string, object> json, BinaryReader br)
         {
@@ -112,20 +115,54 @@ namespace OMF
             }
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
+            elements.Clear();
+
             if (PointSetElements != null)
-                PointSetElements.ForEach(elem => elem.Serialize(json, bw, Guid.NewGuid().ToString()));
+                foreach (var PointSet in PointSetElements)
+                {
+                    PointSet.Serialize(json, bw);
+                    elements.Add(PointSet.uid.ToString());
+                }
+
 
             if (LineSetElements != null)
-                LineSetElements.ForEach(elem => elem.Serialize(json, bw, Guid.NewGuid().ToString()));
+                foreach (var LineSet in LineSetElements)
+                {
+                    LineSet.Serialize(json, bw);
+                    elements.Add(LineSet.uid.ToString());
+                }
 
             if (SurfaceElements != null)
-                SurfaceElements.ForEach(elem => elem.Serialize(json, bw, Guid.NewGuid().ToString()));
+                foreach (var Surface in SurfaceElements)
+                {
+                    Surface.Serialize(json, bw);
+                    elements.Add(Surface.uid.ToString());
+                }
 
             if (VolumeElements != null)
-                VolumeElements.ForEach(elem => elem.Serialize(json, bw, Guid.NewGuid().ToString()));
+                foreach (var VolumeElement in VolumeElements)
+                {
+                    VolumeElement.Serialize(json, bw);
+                    elements.Add(VolumeElement.uid.ToString());
+                }
+        }
+    }
 
+
+    public class ProjectDictionary : Dictionary<string, JRaw>
+    {
+        public ProjectDictionary(Dictionary<string, object> project) : base(FromStringDict(project)) { }
+        private static Dictionary<string, JRaw> FromStringDict(Dictionary<string, object> project)
+        {
+            Dictionary<string, JRaw> base_dict = new Dictionary<string, JRaw>();
+
+            foreach (KeyValuePair<string, object> kvp in project)
+            {
+                base_dict.Add(kvp.Key, new JRaw(kvp.Value));
+            }
+            return base_dict;
         }
     }
 }

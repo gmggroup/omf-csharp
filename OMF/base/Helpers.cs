@@ -174,7 +174,7 @@ namespace OMF
             ScalarArray array = new ScalarArray();
             array.start = bw.BaseStream.Position;
             array.length = compresseddata.Length;
-            array.dtype = "<d8";
+            array.dtype = "<f8";
 
             bw.Write(compresseddata);
 

@@ -24,11 +24,11 @@ namespace OMF
             Data = Helpers.ReadInt3Array(br, array);
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
             array=Helpers.WriteInt3Array(bw, Data);
 
-            ObjectFactory.GetObjectToData(json, this, guid);
+            ObjectFactory.GetObjectToData(json, this, uid.ToString());
         }
     }
 }

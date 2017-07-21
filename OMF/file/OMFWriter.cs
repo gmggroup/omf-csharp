@@ -36,7 +36,7 @@ namespace OMF
         
         public bool Write(Project project, string file)
         {
-            return Write(project, File.Open(file, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None));
+            return Write(project, File.Open(file, FileMode.Create, FileAccess.Write, FileShare.None));
         }
 
         public bool Write(Project project, Stream filestream)
@@ -56,7 +56,9 @@ namespace OMF
                 UInt64 jsonPosition = (UInt64)bw.BaseStream.Position;
 
                 //json string to the file
-                string jsonString = JsonConvert.SerializeObject(json);
+                ProjectDictionary pd = new ProjectDictionary(json);
+
+                string jsonString = JsonConvert.SerializeObject(pd);
                 bw.Write(Encoding.UTF8.GetBytes(jsonString));
                 UpdateJsonPosition(bw, jsonPosition);
             }

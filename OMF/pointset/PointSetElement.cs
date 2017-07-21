@@ -16,10 +16,11 @@ namespace OMF
         {
             PointSet = new PointSetGeometry(data);
         }
-        public byte[] color { get; set; }
+        public int[] color { get; set; }
 		public string subtype { get; set; }
 		public string geometry { get; set; }
-		
+
+        [JsonIgnore]
         public string[] data { get; set; }
 
         [JsonIgnore]
@@ -34,12 +35,12 @@ namespace OMF
             Objects = ObjectFactory.DeserializeObjects(json, br, data);
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
             geometry = ObjectFactory.SerializeObject(PointSet, json, bw);
             data = ObjectFactory.SerializeObjects(Objects, json, bw);
 
-            ObjectFactory.GetObjectToData(json, this, guid);
+            ObjectFactory.GetObjectToData(json, this, uid.ToString());
         }
     }
 }

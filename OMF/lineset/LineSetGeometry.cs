@@ -33,12 +33,12 @@ namespace OMF
             Segments = (Int2Array)ObjectFactory.GetObjectFromGuid(json, br, segments);
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
             vertices = ObjectFactory.SerializeObject(Vertices, json, bw);
             segments = ObjectFactory.SerializeObject(Segments, json, bw);
 
-            ObjectFactory.GetObjectToData(json, this, guid);
+            ObjectFactory.GetObjectToData(json, this, uid.ToString());
         }
     }
 }

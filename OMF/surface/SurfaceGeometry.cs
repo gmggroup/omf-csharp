@@ -32,12 +32,12 @@ namespace OMF
             Triangles = (Int3Array)ObjectFactory.GetObjectFromGuid(json, br, triangles);
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
             vertices = ObjectFactory.SerializeObject(Verticies, json, bw);
             triangles = ObjectFactory.SerializeObject(Triangles, json, bw);
 
-            ObjectFactory.GetObjectToData(json, this, guid);
+            ObjectFactory.GetObjectToData(json, this, uid.ToString());
         }
     }
 }

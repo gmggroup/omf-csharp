@@ -14,13 +14,14 @@ namespace OMF
         {
             Surface = new SurfaceGeometry(vertices, faces);
         }
-        public byte[] color { get; set; }
+        public int[] color { get; set; }
         public string subtype { get; set; }
         public string geometry { get; set; }
 
         [JsonIgnore]
         public SurfaceGeometry Surface { get; set; }
 
+        [JsonIgnore]
         public string[] data { get; set; }
 
 
@@ -29,11 +30,11 @@ namespace OMF
             Surface = (SurfaceGeometry)ObjectFactory.GetObjectFromGuid(json, br, geometry);
         }
 
-        public void Serialize(Dictionary<string, object> json, BinaryWriter bw, string guid)
+        public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
             geometry = ObjectFactory.SerializeObject(Surface, json, bw);
 
-            ObjectFactory.GetObjectToData(json, this, guid);
+            ObjectFactory.GetObjectToData(json, this, uid.ToString());
         }
     }
 }
