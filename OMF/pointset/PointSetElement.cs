@@ -11,6 +11,7 @@ namespace OMF
 	{
         public PointSetElement()
         {
+            subtype = "";
         }
         public PointSetElement(List<double[]> data):this()
         {

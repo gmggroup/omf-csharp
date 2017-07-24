@@ -12,6 +12,27 @@ namespace OMF
     /// </summary>
     public class Project : ContentModel, IObject
     {
+        public Project()
+        {
+            try
+            {
+                author = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            }
+            catch
+            {
+                //not being on the domain could cause problems
+                author = "";
+            }
+            SurfaceElements = new List<OMF.SurfaceElement>();
+            PointSetElements = new List<OMF.PointSetElement>();
+            VolumeElements = new List<OMF.VolumeElement>();
+            LineSetElements = new List<OMF.LineSetElement>();
+            elements = new List<string>();
+            units = "m";
+            origin = new double[] { 0, 0, 0 };
+            date = DateTime.Now;
+            revision = "1";
+        }
         /// <summary>
         /// Author
         /// </summary>
@@ -117,7 +138,7 @@ namespace OMF
 
         public void Serialize(Dictionary<string, object> json, BinaryWriter bw)
         {
-            elements.Clear();
+            elements = new List<string>();
 
             if (PointSetElements != null)
                 foreach (var PointSet in PointSetElements)

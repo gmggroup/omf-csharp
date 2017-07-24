@@ -8,7 +8,7 @@ namespace OMF
     {
         public LineSetElement()
         {
-
+            subtype = "";
         }
         public LineSetElement(List<double[]> verts, List<int[]> segments) : this()
         {

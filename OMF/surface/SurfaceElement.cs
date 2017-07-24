@@ -8,7 +8,7 @@ namespace OMF
     {
         public SurfaceElement()
         {
-
+            subtype = "surface";
         }
         public SurfaceElement(List<double[]> vertices, List<int[]> faces) : this()
         {

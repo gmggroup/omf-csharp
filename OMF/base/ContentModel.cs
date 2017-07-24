@@ -11,6 +11,11 @@ namespace OMF
     /// </summary>
     public class ContentModel : UidModel
     {
+        public ContentModel()
+        {
+            name = "";
+            description = "";
+        }
         /// <summary>
         /// Title
         /// </summary>

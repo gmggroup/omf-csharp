@@ -6,6 +6,10 @@ namespace OMF
 {
     public class VolumeElement : ContentModel, IObject
     {
+        public VolumeElement()
+        {
+            subtype = "";
+        }
         public int[] color { get; set; }
         public string subtype { get; set; }
         public string geometry { get; set; }
