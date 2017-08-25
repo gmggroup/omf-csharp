@@ -14,42 +14,46 @@ namespace OMFTests
         [Test]
         public void RoundTrip()
         {
-            OMFReader torun = new OMFReader();
-
+            // Retrieve data from Resources
             System.Resources.ResourceManager rm = Resources.ResourceManager;
             byte[] bytes = (byte[])rm.GetObject("Wolfpass");
-            Stream s = new MemoryStream(bytes);
-            BinaryReader br = new BinaryReader(s);
+            Stream originalStream = new MemoryStream(bytes);
+            
+            //Read in the original data
+            OMFReader originalData = new OMFReader();
+            Project proj = originalData.Read(originalStream);
 
-            torun.Read(br);
+            //Write the copy data
+            OMFWriter writeData = new OMFWriter();
+            var writeStream = new MemoryStream();
+            writeData.Write(proj, writeStream);
 
-            string fileout = System.IO.Path.GetTempFileName();
-
-            OMFWriter towrite = new OMFWriter();
-            towrite.LineSetElements = torun.LineSetElements;
-            towrite.PointSetElements = torun.PointSetElements;
-            towrite.SurfaceElements = torun.SurfaceElements;
-            towrite.VolumeElements = torun.VolumeElements;
-            towrite.Write(fileout);
+            //Read the copy data
+            var readStream = new MemoryStream(writeStream.ToArray());
+            OMFReader readData = new OMFReader();
+            var projNew = readData.Read(readStream);
 
 
-            OMFReader roundTrip = new OMF.OMFReader();
-            roundTrip.Read(fileout);
+            // test with actual file output
 
-            try
-            {
-                System.IO.File.Delete(fileout);
-            }
-            catch
-            {
+            //try
+            //{
+            //string fileout = Path.GetTempFileName();
+            //writeData.Write(proj, fileout);
+            //readData.Read(proj, fileout);
+            //    System.IO.File.Delete(fileout);
+            //}
+            //catch
+            //{
 
-            }
+            //}
 
-            Assert.AreEqual(towrite.LineSetElements.Count, roundTrip.LineSetElements.Count, "Mismatch in LineSetElements count");
-            Assert.AreEqual(towrite.PointSetElements.Count, roundTrip.PointSetElements.Count, "Mismatch in PointSetElements count");
-            Assert.AreEqual(towrite.SurfaceElements.Count, roundTrip.SurfaceElements.Count, "Mismatch in SurfaceElements count");
-            Assert.AreEqual(towrite.VolumeElements.Count, roundTrip.VolumeElements.Count, "Mismatch in VolumeElements count");
-
+            //Check that the write and read copy data are the same
+            Assert.AreEqual(proj.LineSetElements.Count, projNew.LineSetElements.Count, "Mismatch in LineSetElements count");
+            Assert.AreEqual(proj.PointSetElements.Count, projNew.PointSetElements.Count, "Mismatch in PointSetElements count");
+            Assert.AreEqual(proj.SurfaceElements.Count, projNew.SurfaceElements.Count, "Mismatch in SurfaceElements count");
+            Assert.AreEqual(proj.VolumeElements.Count, projNew.VolumeElements.Count, "Mismatch in VolumeElements count");
+            Assert.AreEqual(proj.uid, projNew.uid, "Mismatch in project uid");
         }
     }
 }

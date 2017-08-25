@@ -41,8 +41,8 @@
       <HintPath>packages\Unofficial.Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -58,30 +58,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Objects\ClassBase.cs" />
-    <Compile Include="Objects\Helpers.cs" />
-    <Compile Include="Objects\AttributeDefinitionArray.cs" />
-    <Compile Include="Objects\AttributeArray.cs" />
-    <Compile Include="Objects\VolumeGridGeometry.cs" />
-    <Compile Include="OMFWriter.cs" />
-    <Compile Include="OMFReader.cs" />
-    <Compile Include="Objects\DateAndDescriptionBase.cs" />
-    <Compile Include="Objects\DateBase.cs" />
-    <Compile Include="Objects\Legend.cs" />
-    <Compile Include="Objects\ObjectFactory.cs" />
-    <Compile Include="Objects\IObject.cs" />
-    <Compile Include="Objects\Int3Array.cs" />
-    <Compile Include="Objects\LineSetGeometry.cs" />
-    <Compile Include="Objects\ScalarData.cs" />
-    <Compile Include="Objects\ScalarArray.cs" />
-    <Compile Include="Objects\ColorArray.cs" />
-    <Compile Include="Objects\StringArray.cs" />
-    <Compile Include="Objects\LineSetElement.cs" />
-    <Compile Include="Objects\Int2Array.cs" />
-    <Compile Include="Objects\VolumeElement.cs" />
-    <Compile Include="Objects\SurfaceElement.cs" />
-    <Compile Include="Objects\SurfaceGeometry.cs" />
-    <Compile Include="Objects\Vector3Array.cs" />
+    <Compile Include="base\Extentions.cs" />
+    <Compile Include="base\ClassBase.cs" />
+    <Compile Include="base\ProjectElementData.cs" />
+    <Compile Include="base\ProjectElementGeometry.cs" />
+    <Compile Include="base\ProjectElement.cs" />
+    <Compile Include="base\Project.cs" />
+    <Compile Include="base\Version.cs" />
+    <Compile Include="base\InvalidOmfException.cs" />
+    <Compile Include="base\Helpers.cs" />
+    <Compile Include="attribute\AttributeDefinitionArray.cs" />
+    <Compile Include="attribute\AttributeArray.cs" />
+    <Compile Include="volume\VolumeGridGeometry.cs" />
+    <Compile Include="file\OMFWriter.cs" />
+    <Compile Include="file\OMFReader.cs" />
+    <Compile Include="base\ContentModel.cs" />
+    <Compile Include="base\UidModel.cs" />
+    <Compile Include="data\Legend.cs" />
+    <Compile Include="base\ObjectFactory.cs" />
+    <Compile Include="base\IObject.cs" />
+    <Compile Include="data\Int3Array.cs" />
+    <Compile Include="lineset\LineSetGeometry.cs" />
+    <Compile Include="data\ScalarData.cs" />
+    <Compile Include="data\ScalarArray.cs" />
+    <Compile Include="data\ColorArray.cs" />
+    <Compile Include="data\StringArray.cs" />
+    <Compile Include="lineset\LineSetElement.cs" />
+    <Compile Include="data\Int2Array.cs" />
+    <Compile Include="volume\VolumeElement.cs" />
+    <Compile Include="surface\SurfaceElement.cs" />
+    <Compile Include="surface\SurfaceGeometry.cs" />
+    <Compile Include="data\Vector3Array.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -105,11 +112,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Objects\PointSetElement.cs" />
-    <Compile Include="Objects\PointSetGeometry.cs" />
+    <Compile Include="pointset\PointSetElement.cs" />
+    <Compile Include="pointset\PointSetGeometry.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Ionic.Zip.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
